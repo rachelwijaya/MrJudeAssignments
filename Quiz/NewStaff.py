@@ -13,7 +13,7 @@ class NewStaff:
     def setID(self):
         id = input("Input ID[SXXXX]: ")
         if len(id) == 5 and id[1] == 'S':
-            if type(id[2:5]) == type(5) and id is not in idList:
+            if (type(id[1:4]) == type(5)) and (id not in idList):
                 return self.__id
             else:
                 setID()
@@ -37,7 +37,7 @@ class NewStaff:
 
     def setSalary(self):
         salary = input("Input salary for " + position)
-        if position == "Staff"
+        if position == "Staff":
             if salary < 3500000 and salary > 7000000:
                 return self.__salary
             else:
@@ -51,4 +51,17 @@ class NewStaff:
             if salary > 10000000:
                 return self.__salary
             else:
+                setSalary()
+        else:
             setSalary()
+
+    def main(self):
+        self.setID()
+        self.setName()
+        self.setPosition()
+        self.setSalary()
+
+    def toString(self):
+        string = self.__id + "#" + self.__name + "#" + self.__position + "#" + self.__salary
+        with open("data.txt", 'w') as f:
+            f.write(string)
