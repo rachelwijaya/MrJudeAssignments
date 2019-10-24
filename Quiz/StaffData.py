@@ -1,4 +1,4 @@
-#import NewStaff as ns
+from NewStaff import NewStaff
 
 path = "data.txt"
 with open(path, 'r') as f:
@@ -28,9 +28,23 @@ with open(path, 'r') as f:
     for i in range(len(allData)):
         salaryList.append(allData[i][3])
 
-    #for x, y in range(len(allData)):
-print(idList)
-print(nameList)
-print(positionList)
-print(salaryList)
-print(allData)
+#for x, y in range(len(allData)):
+#print(idList)
+#print(nameList)
+#print(positionList)
+#print(salaryList)
+#print(allData)
+
+def mainMenu():
+    print("1. New Staff")
+    print("2. Delete Staff")
+    print("3. View Summary Data")
+    print("4. Save & Exit")
+    choice = input("Input Choice: ")
+
+    if choice == 1:
+        NewStaff.main()
+        NewStaff.toString()
+    #elif choice == 2:
+
+mainMenu()
