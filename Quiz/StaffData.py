@@ -1,3 +1,4 @@
+import statistics as st
 def getData():
     path = "data.txt"
     with open(path, 'r') as f:
@@ -42,16 +43,16 @@ class StaffData:
             if (type(id[1:4]) == type(5)) and (id not in idList):
                 return self.id
             else:
-                setID()
+                StaffData.setID()
         else:
-            setID()
+            StaffData.setID()
 
     def setName(self):
         name = input("Input name[0...20]: ")
         if len(name) <= 20:
             return self.name
         else:
-            setName()
+            StaffData.setName()
 
     def setPosition(self):
         position = input("Input position[Staff|Manager|Office]: ")
@@ -59,7 +60,7 @@ class StaffData:
         if position in posOptions:
             return self.position
         else:
-            setPosition()
+            StaffData.setPosition()
 
     def setSalary(self):
         salary = input("Input salary for " + position)
@@ -67,41 +68,73 @@ class StaffData:
             if salary < 3500000 and salary > 7000000:
                 return self.salary
             else:
-                setSalary()
+                StaffData.setSalary()
         elif position == "Officer":
             if salary < 7000001 and salary > 10000000:
                 return self.salary
             else:
-                setSalary()
+                StaffData.setSalary()
         elif position == "Manager":
             if salary > 10000000:
                 return self.salary
             else:
-                setSalary()
+                StaffData.setSalary()
         else:
-            setSalary()
+            StaffData.setSalary()
 
-    def main():
-        StaffData.setID()
-        StaffData.setName()
-        StaffData.setPosition()
-        StaffData.setSalary()
+    def newStaff(self):
+        self.id = StaffData.setID()
+        self.name = StaffData.setName()
+        self.position = StaffData.setPosition()
+        self.salary = StaffData.setSalary()
+        dataList = []
+        dataList.append(self.id)
+        dataList.append(self.name)
+        dataList.append(self.position)
+        dataList.append(self.salary)
+        getData().allData.append(dataList)
 
-    def findID():
+    def findID(self):
         id = input("Input ID[SXXXX]: ")
-
-        for i, j in range(len(allData)):
-            if j == id:
+        data = getData().allData
+        for i, j in range(len(data)):
+            if data[i][j] == data[i][id]:
                 del allData[i]
             else:
-                findID()
+                StaffData.findID()
 
-    def deleteStaff():
-        findID()
-        #with open(path, )
-        getData()
+    def deleteStaff(self):
+        StaffData.findID()
+        StaffData.getData()
 
-#for x, y in range(len(allData)):
+    def summary(self):
+        staffSal, officerSal, managerSal = [],[],[]
+        data = getData().allData
+        for i in range(len(data)):
+            if data[i][2] == "Staff":
+                staffSal.append(data[3])
+            elif data[i][2] == "Officer":
+                officerSal.append(data[3])
+            elif data[i][2] == "Manager":
+                managerSal.append(data[3])
+
+        print("1. Staff")
+        print("Minimum salary: ", min(staffSal))
+        print("Maximum salary: ", max(staffSal))
+        print("Average salary: ", st.mean(staffSal))
+        print("2. Officer")
+        print("Minimum salary: ", min(officerSal))
+        print("Maximum salary: ", max(officerSal))
+        print("Average salary: ", st.mean(officerSal))
+        print("3. Manager")
+        print("Minimum salary: ", min(managerSal))
+        print("Maximum salary: ", max(managerSal))
+        print("Average salary: ", st.mean(managerSal))
+
+
+
+
+#
 #print(idList)
 #print(nameList)
 #print(positionList)
@@ -113,13 +146,21 @@ def mainMenu():
     print("2. Delete Staff")
     print("3. View Summary Data")
     print("4. Save & Exit")
-    choice = int(input("Input Choice: "))
+    while True:
+        choice = int(input("Input Choice: ")
+        if choice == 1:
+            StaffData.newStaff()
+        elif choice == 2:
+            StaffData.deleteStaff()
+        elif choice == 3:
+            StaffData.summary()
+        #elif choice == 4:
+            #return False
+        else:
+            mainMenu()
 
-    if choice == 1:
-        StaffData.main()
-    elif choice == 2:
-        StaffData.deleteStaff()
-    elif choice == 3:
+        mainMenu()
+
 
 
 
